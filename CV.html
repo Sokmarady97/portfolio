@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thang Sokmardy — Web & Mobile Developer</title>
+    <meta name="description"
+        content="Portfolio of Thang Sokmardy — Web & Mobile Developer (Vue.js, Flutter, Java, Kotlin, Firebase)." />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍💻</text></svg>">
+    <style>
+        :root {
+            --bg: #0b1020;
+            /* dark background */
+            --panel: #121a33;
+            /* card background */
+            --muted: #a6b0cf;
+            /* secondary text */
+            --text: #e6edff;
+            /* primary text */
+            --brand: #6aa9ff;
+            /* accent */
+            --brand-2: #7ee787;
+            /* secondary accent */
+            --ring: rgba(106, 169, 255, .4);
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 2px 8px rgba(0, 0, 0, .25);
+        }
+
+        [data-theme="light"] {
+            --bg: #f6f7fb;
+            --panel: #ffffff;
+            --muted: #4b5563;
+            --text: #0f172a;
+            --brand: #2563eb;
+            --brand-2: #059669;
+            --ring: rgba(37, 99, 235, .25);
+            --shadow: 0 10px 30px rgba(2, 6, 23, .08), 0 2px 10px rgba(2, 6, 23, .06);
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 80px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: color-mix(in oklab, var(--bg) 88%, transparent);
+            border-bottom: 1px solid color-mix(in oklab, var(--muted) 30%, transparent);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            justify-content: space-between;
+            padding: 14px 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+
+        .brand .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            display: grid;
+            place-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .brand .logo span {
+            font-size: 20px;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 600
+        }
+
+        nav a:hover {
+            color: var(--text)
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: var(--panel);
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid color-mix(in oklab, var(--muted) 22%, transparent);
+            box-shadow: var(--shadow)
+        }
+
+        .btn:hover {
+            outline: 2px solid var(--ring)
+        }
+
+        .grid {
+            display: grid;
+            gap: 22px
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 30px;
+            align-items: center;
+            padding: 28px 0
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .p24 {
+            padding: 24px
+        }
+
+        .p32 {
+            padding: 32px
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: color-mix(in oklab, var(--panel) 70%, var(--brand) 30%);
+            color: var(--text);
+            border: 1px solid color-mix(in oklab, var(--brand) 30%, transparent);
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .title {
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.2;
+            margin: 0
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 2.4vw, 18px);
+            margin: .5rem 0 0
+        }
+
+        .avatar {
+            width: 220px;
+            aspect-ratio: 1/1;
+            border-radius: 22px;
+            object-fit: cover;
+            display: block;
+            box-shadow: var(--shadow);
+            border: 4px solid color-mix(in oklab, var(--brand) 45%, transparent);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px
+        }
+
+        .section {
+            margin-top: 44px
+        }
+
+        .section h2 {
+            margin: 0 0 14px;
+            font-size: 22px
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .skill {
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 65%, var(--brand) 35%), var(--panel));
+            border: 1px solid color-mix(in oklab, var(--brand) 35%, transparent);
+            font-weight: 700;
+            font-size: 13px
+        }
+
+        .cols {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px
+        }
+
+        .span-8 {
+            grid-column: span 8
+        }
+
+        .span-4 {
+            grid-column: span 4
+        }
+
+        .xp-item {
+            padding: 18px;
+            border-radius: 16px;
+            background: color-mix(in oklab, var(--panel) 85%, black 15%);
+            border: 1px solid color-mix(in oklab, var(--muted) 25%, transparent)
+        }
+
+        .xp-item h3 {
+            margin: 0 0 4px;
+            font-size: 16px
+        }
+
+        .xp-item .when {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 8px
+        }
+
+        .list {
+            padding-left: 18px
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 18px
+        }
+
+        .project {
+            position: relative;
+            overflow: hidden
+        }
+
+        .project h3 {
+            margin: 0 0 6px
+        }
+
+        .project .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px
+        }
+
+        .project .stack .chip {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: color-mix(in oklab, var(--panel) 70%, var(--brand-2) 30%);
+            border: 1px solid color-mix(in oklab, var(--brand-2) 30%, transparent)
+        }
+
+        .contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px
+        }
+
+        .contact a {
+            word-break: break-all
+        }
+
+        footer {
+            margin: 56px 0 0;
+            padding: 24px 0;
+            color: var(--muted);
+            text-align: center;
+            border-top: 1px solid color-mix(in oklab, var(--muted) 25%, transparent)
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-weight: 700
+        }
+
+        .lang-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .badge {
+            border: 1px solid color-mix(in oklab, var(--muted) 30%, transparent);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            background: var(--panel)
+        }
+
+        .kbd {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            padding: 2px 6px;
+            border: 1px solid color-mix(in oklab, var(--muted) 30%, transparent);
+            border-radius: 6px;
+            background: color-mix(in oklab, var(--panel) 80%, black 20%)
+        }
+
+        /* responsive */
+        @media (max-width:900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar {
+                width: 160px
+            }
+        }
+
+        @media (max-width:720px) {
+            .cols {
+                grid-template-columns: 1fr;
+            }
+
+            .span-8,
+            .span-4 {
+                grid-column: auto
+            }
+        }
+
+        /* print */
+        @media print {
+
+            header,
+            .hero-cta,
+            .theme-toggle {
+                display: none
+            }
+
+            body {
+                background: #fff;
+                color: #000
+            }
+
+            .card {
+                box-shadow: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar container">
+            <a class="brand" href="#top" aria-label="Home">
+                <div class="logo" aria-hidden="true"><span>TS</span></div>
+                <span>Thang Sokmardy</span>
+            </a>
+            <nav aria-label="Primary">
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="btn theme-toggle" id="themeBtn" title="Toggle theme (L/D)">Toggle Theme</button>
+        </div>
+    </header>
+
+    <main id="top" class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="card p32">
+                <div class="tag" aria-label="Role">Web & Mobile Developer</div>
+                <h1 class="title">Hi, I'm mardy — I build fast, clean, and usable apps for web & mobile.</h1>
+                <p class="subtitle muted">Computer Engineering student (PKNU, 2021–2025). 1 year of mobile development
+                    with <strong>Flutter</strong>; 6 months working with <strong>Java</strong> &
+                    <strong>Kotlin</strong>. Comfortable with <strong>Vue.js</strong>, <strong>HTML/CSS/JS</strong>,
+                    <strong>Firebase</strong>, and REST APIs. Passionate about IT Support and Cybersecurity.
+                </p>
+                <div class="hero-cta">
+                    <a class="btn" href="https://github.com/Sokmarady97" target="_blank" rel="noopener">GitHub
+                        Profile</a>
+                    <a class="btn" href="#contact">Contact Me</a>
+                    <a class="btn" href="https://github.com/Sokmarady97/chat-school" target="_blank"
+                        rel="noopener">Capstone Repo</a>
+                </div>
+            </div>
+            <div class="card p24" style="display:grid; place-items:center">
+                <img class="avatar" src="https://avatars.githubusercontent.com/u/153036662?v=4"
+                    alt="Portrait of Thang Sokmardy" />
+                <div style="margin-top:12px" class="lang-badges" aria-label="Languages">
+                    <span class="badge">English — Intermediate</span>
+                    <span class="badge">Korean — Intermediate</span>
+                    <span class="badge">Chinese — Intermediate</span>
+                    <span class="badge">Khmer — Native</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUICK FACTS -->
+        <section class="section cols">
+            <div class="card p24 span-8">
+                <h2>Summary</h2>
+                <p>Through team projects and capstone design, I have built a solid foundation in <strong>team
+                        collaboration</strong>, <strong>technical development</strong>, and <strong>version
+                        control</strong>. I enjoy shipping features, fixing tricky bugs, and improving user experience.
+                    Open to <strong>web / mobile</strong> internships and junior roles.</p>
+            </div>
+            <div class="card p24 span-4">
+                <h2>Tech Snapshot</h2>
+                <div class="skills" id="skills">
+                    <span class="skill">Vue.js</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">HTML</span>
+                    <span class="skill">CSS</span>
+                    <span class="skill">Flutter</span>
+                    <span class="skill">Java</span>
+                    <span class="skill">Kotlin</span>
+                    <span class="skill">Firebase</span>
+                    <span class="skill">REST API</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">Git & GitHub</span>
+                    <span class="skill">Linux / macOS / Windows</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="section">
+            <h2>Featured Projects</h2>
+            <div class="projects">
+                <article class="card p24 project">
+                    <h3>Chat-School / UniBridge</h3>
+                    <p class="muted">Mobile & Web platform for international students: subject registration, schedule,
+                        campus maps, and group chat.</p>
+                    <ul class="list">
+                        <li>Built in Flutter (mobile) and Vue.js (web) with Firebase backend.</li>
+                        <li>Implemented timetable UI, subject CRUD, and color-coded courses.</li>
+                        <li>Integrated authentication and real-time data sync.</li>
+                    </ul>
+                    <div class="stack">
+                        <span class="chip">Flutter</span>
+                        <span class="chip">Vue.js</span>
+                        <span class="chip">Firebase</span>
+                        <span class="chip">Firestore</span>
+                        <span class="chip">GitHub</span>
+                    </div>
+                    <p style="margin-top:10px">
+                        <a class="btn" href="https://github.com/Sokmarady97/chat-school" target="_blank"
+                            rel="noopener">View Repository</a>
+                    </p>
+                </article>
+
+                <article class="card p24 project">
+                    <h3>Music Player & Course Registration (Java/Kotlin)</h3>
+                    <p class="muted">Simple Android apps demonstrating media playback and course registration forms.</p>
+                    <ul class="list">
+                        <li>Built activities/fragments and custom adapters.</li>
+                        <li>Handled permissions, state, and basic storage.</li>
+                    </ul>
+                    <div class="stack">
+                        <span class="chip">Java</span>
+                        <span class="chip">Kotlin</span>
+                        <span class="chip">Android</span>
+                    </div>
+                </article>
+
+                <article class="card p24 project">
+                    <h3>Calculator & Study Tracker</h3>
+                    <p class="muted">Utility apps built in Flutter to practice state management and component
+                        architecture.</p>
+                    <ul class="list">
+                        <li>Clean UI, responsive layout, and input validation.</li>
+                        <li>Local persistence with shared preferences.</li>
+                    </ul>
+                    <div class="stack">
+                        <span class="chip">Flutter</span>
+                        <span class="chip">Dart</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section">
+            <h2>Experience</h2>
+            <div class="grid">
+                <div class="card p24 xp-item">
+                    <h3>Team Project — Busan Academy, Capstone Design</h3>
+                    <div class="when">Mar 2024 — Dec 2024 · Busan, KR</div>
+                    <ul class="list">
+                        <li>Developed an app for international students (maps, study schedules, test preparation).</li>
+                        <li>Built a music player and course registration system using <strong>Java</strong> &
+                            <strong>Kotlin</strong>.
+                        </li>
+                        <li>Created mini apps (calculator, study tracker) using <strong>Flutter</strong>.</li>
+                        <li>Integrated <strong>Firebase</strong> for data management; used <strong>GitHub</strong> for
+                            collaboration & version control.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION & EXTRAS -->
+        <section class="section cols">
+            <div class="card p24 span-8">
+                <h2>Education</h2>
+                <p><strong>BS, Computer Engineering</strong> — Pukyong National University (2021–2025)</p>
+                <p class="muted">Related courses/projects: Mobile App Development, Web Development (Vue.js), Databases,
+                    Algorithms, Operating Systems.</p>
+            </div>
+            <div class="card p24 span-4">
+                <h2>Extras</h2>
+                <ul class="list">
+                    <li>Operating Systems: Linux, Windows, macOS</li>
+                    <li>Interests: IT Support, Cybersecurity, UX</li>
+                    <li>Tools: VS Code, Android Studio, Git, Figma</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section card p24">
+            <h2>Contact</h2>
+            <div class="contact">
+                <div>
+                    <div class="muted">Email</div>
+                    <a class="btn" href="mailto:tangsokmardy@gmail.com">tangsokmardy@gmail.com</a>
+                </div>
+                <div>
+                    <div class="muted">Phone</div>
+                    <a class="btn" href="tel:+821068019710">+82 010‑6801‑9710</a>
+                </div>
+                <div>
+                    <div class="muted">Location</div>
+                    <span class="btn" aria-label="Address">Nam‑gu, Busan, Republic of Korea (48497)</span>
+                </div>
+                <div>
+                    <div class="muted">GitHub</div>
+                    <a class="btn" href="https://github.com/Sokmarady97" target="_blank"
+                        rel="noopener">github.com/Sokmarady97</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with <span class="kbd">HTML</span> + <span class="kbd">CSS</span> + <span class="kbd">JS</span>. ©
+                <span id="y"></span> Thang Sokmardy.
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        // Theme toggle with localStorage
+        const btn = document.querySelector('#themeBtn');
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const saved = localStorage.getItem('ts-theme');
+        const setTheme = (mode) => {
+            if (mode === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+            else { document.documentElement.removeAttribute('data-theme'); }
+            localStorage.setItem('ts-theme', mode);
+        };
+        if (saved) { setTheme(saved); } else if (prefersLight) { setTheme('light'); }
+        btn.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            setTheme(isLight ? 'dark' : 'light');
+        });
+
+        // Footer year
+        document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
