@@ -7,22 +7,16 @@
     <title>Thang Sokmardy — Web & Mobile Developer</title>
     <meta name="description"
         content="Portfolio of Thang Sokmardy — Web & Mobile Developer (Vue.js, Flutter, Java, Kotlin, Firebase)." />
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍💻</text></svg>">
+    <!-- Use your photo as favicon (optional) -->
+    <link rel="icon" href="Mardy.jpg">
     <style>
         :root {
             --bg: #0b1020;
-            /* dark background */
             --panel: #121a33;
-            /* card background */
             --muted: #a6b0cf;
-            /* secondary text */
             --text: #e6edff;
-            /* primary text */
             --brand: #6aa9ff;
-            /* accent */
             --brand-2: #7ee787;
-            /* secondary accent */
             --ring: rgba(106, 169, 255, .4);
             --shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 2px 8px rgba(0, 0, 0, .25);
         }
@@ -40,7 +34,7 @@
 
         html,
         body {
-            height: 100%;
+            height: 100%
         }
 
         body {
@@ -48,13 +42,13 @@
             font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
             line-height: 1.6;
             background: var(--bg);
-            color: var(--text);
+            color: var(--text)
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 28px 20px 80px;
+            padding: 28px 20px 80px
         }
 
         header {
@@ -64,6 +58,7 @@
             backdrop-filter: blur(10px);
             background: color-mix(in oklab, var(--bg) 88%, transparent);
             border-bottom: 1px solid color-mix(in oklab, var(--muted) 30%, transparent);
+            animation: drop 600ms ease
         }
 
         .navbar {
@@ -71,7 +66,7 @@
             align-items: center;
             gap: 18px;
             justify-content: space-between;
-            padding: 14px 20px;
+            padding: 14px 20px
         }
 
         .brand {
@@ -81,7 +76,7 @@
             text-decoration: none;
             color: var(--text);
             font-weight: 700;
-            letter-spacing: .3px;
+            letter-spacing: .3px
         }
 
         .brand .logo {
@@ -92,21 +87,45 @@
             display: grid;
             place-items: center;
             box-shadow: var(--shadow);
+            transition: transform .4s ease
+        }
+
+        .brand:hover .logo {
+            transform: rotate(8deg) scale(1.04)
         }
 
         .brand .logo span {
-            font-size: 20px;
+            font-size: 20px
         }
 
         nav a {
             color: var(--muted);
             text-decoration: none;
             margin: 0 10px;
-            font-weight: 600
+            font-weight: 600;
+            position: relative
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .3s ease;
+            border-radius: 2px
         }
 
         nav a:hover {
             color: var(--text)
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1)
         }
 
         .btn {
@@ -119,11 +138,38 @@
             color: var(--text);
             text-decoration: none;
             border: 1px solid color-mix(in oklab, var(--muted) 22%, transparent);
-            box-shadow: var(--shadow)
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform .15s ease, outline .15s ease
         }
 
         .btn:hover {
-            outline: 2px solid var(--ring)
+            outline: 2px solid var(--ring);
+            transform: translateY(-1px)
+        }
+
+        .btn:active {
+            transform: translateY(0)
+        }
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            inset: auto;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: color-mix(in oklab, var(--brand) 30%, white 10%);
+            opacity: .35;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width .5s ease, height .5s ease
+        }
+
+        .btn.rippling::after {
+            width: 300px;
+            height: 300px
         }
 
         .grid {
@@ -144,6 +190,11 @@
             border: 1px solid color-mix(in oklab, var(--muted) 25%, transparent);
             border-radius: 18px;
             box-shadow: var(--shadow);
+            transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s ease
+        }
+
+        .card:hover {
+            transform: translateY(-2px)
         }
 
         .p24 {
@@ -164,7 +215,9 @@
             color: var(--text);
             border: 1px solid color-mix(in oklab, var(--brand) 30%, transparent);
             font-size: 12px;
-            font-weight: 700
+            font-weight: 700;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+            animation: pop 480ms ease both
         }
 
         .muted {
@@ -190,6 +243,7 @@
             display: block;
             box-shadow: var(--shadow);
             border: 4px solid color-mix(in oklab, var(--brand) 45%, transparent);
+            animation: floatY 6s ease-in-out infinite
         }
 
         .hero-cta {
@@ -220,7 +274,13 @@
             background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 65%, var(--brand) 35%), var(--panel));
             border: 1px solid color-mix(in oklab, var(--brand) 35%, transparent);
             font-weight: 700;
-            font-size: 13px
+            font-size: 13px;
+            transition: transform .25s ease, box-shadow .25s ease
+        }
+
+        .skill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, .25)
         }
 
         .cols {
@@ -270,6 +330,10 @@
             overflow: hidden
         }
 
+        .project:hover {
+            box-shadow: 0 18px 40px rgba(0, 0, 0, .35)
+        }
+
         .project h3 {
             margin: 0 0 6px
         }
@@ -313,7 +377,12 @@
             border: none;
             background: transparent;
             color: var(--text);
-            font-weight: 700
+            font-weight: 700;
+            transition: transform .25s ease
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(-4deg) scale(1.03)
         }
 
         .lang-badges {
@@ -328,7 +397,12 @@
             border-radius: 999px;
             font-weight: 700;
             font-size: 12px;
-            background: var(--panel)
+            background: var(--panel);
+            transition: transform .25s ease
+        }
+
+        .badge:hover {
+            transform: translateY(-2px)
         }
 
         .kbd {
@@ -339,10 +413,71 @@
             background: color-mix(in oklab, var(--panel) 80%, black 20%)
         }
 
+        /* reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px) scale(.98)
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: none;
+            animation: fadeUp .7s cubic-bezier(.2, .8, .2, 1) both
+        }
+
+        /* keyframes */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(.98)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes floatY {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-6px)
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(.9);
+                opacity: 0
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        @keyframes drop {
+            from {
+                opacity: 0;
+                transform: translateY(-8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
         /* responsive */
         @media (max-width:900px) {
             .hero {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
 
             .avatar {
@@ -352,7 +487,7 @@
 
         @media (max-width:720px) {
             .cols {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
 
             .span-8,
@@ -404,11 +539,14 @@
         <section class="hero">
             <div class="card p32">
                 <div class="tag" aria-label="Role">Web & Mobile Developer</div>
-                <h1 class="title">Hi, I'm mardy — I build fast, clean, and usable apps for web & mobile.</h1>
-                <p class="subtitle muted">Computer Engineering student (PKNU, 2021–2025). 1 year of mobile development
-                    with <strong>Flutter</strong>; 6 months working with <strong>Java</strong> &
-                    <strong>Kotlin</strong>. Comfortable with <strong>Vue.js</strong>, <strong>HTML/CSS/JS</strong>,
-                    <strong>Firebase</strong>, and REST APIs. Passionate about IT Support and Cybersecurity.
+                <h1 class="title">Hi, I'm Mardy — I build fast, clean, and usable apps for web & mobile.</h1>
+                <p class="subtitle muted">
+                    Computer Engineering student (PKNU, 2021–2025). 1 year of mobile development with
+                    <strong>Flutter</strong>;
+                    6 months working with <strong>Java</strong> & <strong>Kotlin</strong>. Comfortable with
+                    <strong>Vue.js</strong>,
+                    <strong>HTML/CSS/JS</strong>, <strong>Firebase</strong>, and REST APIs. Passionate about IT Support
+                    and Cybersecurity.
                 </p>
                 <div class="hero-cta">
                     <a class="btn" href="https://github.com/Sokmarady97" target="_blank" rel="noopener">GitHub
@@ -418,7 +556,7 @@
                         rel="noopener">Capstone Repo</a>
                 </div>
             </div>
-            <div class="card p24" style="display:grid; place-items:center">
+            <div class="card p24" style="display:grid;place-items:center">
                 <img class="avatar" src="Mardy.jpg" alt="Portrait of Thang Sokmardy" />
                 <div style="margin-top:12px" class="lang-badges" aria-label="Languages">
                     <span class="badge">English — Intermediate</span>
@@ -561,11 +699,11 @@
                 </div>
                 <div>
                     <div class="muted">Phone</div>
-                    <a class="btn" href="tel:+821068019710">+82 010‑6801‑9710</a>
+                    <a class="btn" href="tel:+821068019710">+82 010-6801-9710</a>
                 </div>
                 <div>
                     <div class="muted">Location</div>
-                    <span class="btn" aria-label="Address">Nam‑gu, Busan, Republic of Korea (48497)</span>
+                    <span class="btn" aria-label="Address">Nam-gu, Busan, Republic of Korea (48497)</span>
                 </div>
                 <div>
                     <div class="muted">GitHub</div>
@@ -583,8 +721,30 @@
     </main>
 
     <script>
+        // Reveal on scroll
+        const revealTargets = document.querySelectorAll('.card, .project, .xp-item, section h2, .skill, .badge');
+        revealTargets.forEach(el => el.classList.add('reveal'));
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+            });
+        }, { threshold: .2 });
+        revealTargets.forEach(el => io.observe(el));
+
+        // Button ripple
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.btn');
+            if (!btn) return;
+            const r = btn.getBoundingClientRect();
+            btn.style.setProperty('--rx', (e.clientX - r.left) + 'px');
+            btn.style.setProperty('--ry', (e.clientY - r.top) + 'px');
+            btn.classList.remove('rippling'); void btn.offsetWidth; // restart
+            btn.classList.add('rippling');
+            setTimeout(() => btn.classList.remove('rippling'), 500);
+        });
+
         // Theme toggle with localStorage
-        const btn = document.querySelector('#themeBtn');
+        const btnTheme = document.querySelector('#themeBtn');
         const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
         const saved = localStorage.getItem('ts-theme');
         const setTheme = (mode) => {
@@ -593,7 +753,7 @@
             localStorage.setItem('ts-theme', mode);
         };
         if (saved) { setTheme(saved); } else if (prefersLight) { setTheme('light'); }
-        btn.addEventListener('click', () => {
+        btnTheme.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             setTheme(isLight ? 'dark' : 'light');
         });
